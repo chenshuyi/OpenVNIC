@@ -224,16 +224,13 @@ vnic_register_vdev (struct net_device *real_dev, char *vdev_name, unsigned char 
 	vdev_id_priv = vdev_id;
 
 	sprintf(name, "%s%d", vdev_name, vdev_id);
-//	sprintf(vdev_name_priv, "%s%d", vdev_name, vdev_id);
 	printk("name : %s \n", name);
-//	printk("vdev_name_priv : %s \n", vdev_name_priv);
-	
+
 	new_dev = alloc_netdev(sizeof(struct vnic_device), name, vnic_netdev_setup);
 
 	if (!new_dev)
 		return -ENODEV;
 
-//	strcpy(vnic_dev_info(new_dev)->name, name);
 	vnic_dev_info(new_dev)->real_dev = real_dev;
 	vnic_dev_info(new_dev)->vid = vdev_id;
 	vnic_dev_info(new_dev)->vtype = vtype;
@@ -288,11 +285,6 @@ vnic_unregister_vdev (const char * vdev_name, const unsigned char vdev_id)
 
 	if (dev) {
 
-	  /*  	if (dev->flags & IFF_UP) {
-			printk(KERN_ERR "This virtual device is busy now, please release it and try again.\n");
-			return -EBUSY;
-		}
-	   */
 		vnic_proc_rem_dev(dev);
 
 		dev_put(dev);
